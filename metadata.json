@@ -1,0 +1,5 @@
+{
+  "name": "Halol Sertifikat Skanner",
+  "description": "Mahsulotlarning halol sertifikatini QR-kod orqali tekshirish uchun startup ilova.",
+  "requestFramePermissions": ["camera"]
+}

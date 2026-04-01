@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-brand-primary: #059669;
+  --color-brand-secondary: #10b981;
+  --color-brand-dark: #064e3b;
+  
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  --radius-4xl: 2.5rem;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased selection:bg-emerald-100 selection:text-emerald-900;
+  }
+  
+  .dark body {
+    @apply bg-slate-950 text-slate-100 selection:bg-emerald-900/30 selection:text-emerald-400;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl shadow-slate-200/50;
+  }
+  
+  .dark .glass-card {
+    @apply bg-slate-900/80 backdrop-blur-md border border-slate-800 shadow-none;
+  }
+  
+  .btn-primary {
+    @apply relative overflow-hidden rounded-2xl bg-emerald-600 px-6 py-3 font-bold text-white shadow-lg shadow-emerald-200 transition-all hover:bg-emerald-700 active:scale-95 disabled:opacity-50 dark:shadow-none;
+  }
+  
+  .input-field {
+    @apply h-14 w-full rounded-2xl border-2 border-slate-200 bg-white px-4 outline-none transition-all focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50/50 dark:bg-slate-900 dark:border-slate-800 dark:focus:border-emerald-500 dark:focus:ring-emerald-900/20;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors dark:bg-slate-800 dark:hover:bg-slate-700;
+}
+
+/* Scanner specific styles */
+#reader {
+  border: none !important;
+}
+
+#reader__scan_region {
+  @apply rounded-2xl overflow-hidden;
+}
+
+#reader__dashboard {
+  @apply !hidden;
+}
+
+/* Animation utilities */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}

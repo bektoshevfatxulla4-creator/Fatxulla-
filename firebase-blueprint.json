@@ -1,0 +1,104 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and subscription data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "isPremium": { "type": "boolean" },
+        "premiumExpiry": { "type": "number" },
+        "dailyScans": {
+          "type": "object",
+          "properties": {
+            "count": { "type": "integer" },
+            "date": { "type": "string" }
+          }
+        },
+        "role": { "type": "string", "enum": ["user", "admin"] }
+      },
+      "required": ["uid", "email"]
+    },
+    "ScanHistory": {
+      "title": "ScanHistory",
+      "description": "History of product scans",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "productName": { "type": "string" },
+        "status": { "type": "string", "enum": ["halal", "haram", "mushbooh"] },
+        "reason": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "image": { "type": "string" }
+      },
+      "required": ["uid", "productName", "status", "timestamp"]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "Payment records for premium subscriptions",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "completed", "failed"] },
+        "provider": { "type": "string", "enum": ["payme", "click"] },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["uid", "amount", "status", "timestamp"]
+    },
+    "Store": {
+      "title": "Store",
+      "description": "Partner store information for B2B subscription",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "address": { "type": "string" },
+        "qrCode": { "type": "string" },
+        "ownerEmail": { "type": "string" },
+        "subscriptionExpiry": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["name", "qrCode", "ownerEmail", "subscriptionExpiry"]
+    },
+    "CheckIn": {
+      "title": "CheckIn",
+      "description": "User check-in to a store",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "storeId": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "expiresAt": { "type": "number" }
+      },
+      "required": ["uid", "storeId", "timestamp", "expiresAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "/scans/{scanId}": {
+      "schema": "ScanHistory",
+      "description": "Global scan history documents"
+    },
+    "/payments/{paymentId}": {
+      "schema": "Payment",
+      "description": "Payment transaction records"
+    },
+    "/stores/{storeId}": {
+      "schema": "Store",
+      "description": "Partner store documents"
+    },
+    "/checkins/{checkInId}": {
+      "schema": "CheckIn",
+      "description": "User store check-in records"
+    }
+  }
+}
